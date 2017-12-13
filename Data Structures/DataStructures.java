@@ -12,6 +12,9 @@ public class DataStructures {
       top = 0;
     }
 
+    /*
+     * Time complexity: O(1) -- instant access to top element
+     */
     public T pop() {
       T poppedValue = null;
 
@@ -24,6 +27,9 @@ public class DataStructures {
       return poppedValue;
     }
 
+    /*
+     * Time complexity: O(1) -- instant access to insertion index
+     */
     public void push(T value) {
       if (top < stackArray.length) {
         stackArray[top] = value;
@@ -31,6 +37,9 @@ public class DataStructures {
       }
     }
 
+    /*
+     * Time complexity: O(1) -- instant access to top index
+     */
     public T peek() {
       if (top > 0) {
         return stackArray[top-1];
@@ -39,6 +48,9 @@ public class DataStructures {
       }
     }
 
+    /*
+     * Time complexity: O(1) -- just check value of top
+     */
     public boolean isEmpty() {
       if (top == 0) {
         return true;
@@ -47,6 +59,9 @@ public class DataStructures {
       }
     }
 
+    /*
+     * Time complexity: O(1) -- just check value of top
+     */
     public boolean isFull() {
       if (top == stackArray.length) {
         return true;
@@ -55,6 +70,10 @@ public class DataStructures {
       }
     }
 
+
+    /*
+     * Time complexity: O(n) -- run through entire array to build string
+     */
     @Override
     public String toString() {
       String stack = "[";
