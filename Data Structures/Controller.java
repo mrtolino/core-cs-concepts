@@ -4,17 +4,17 @@ public class Controller {
   public Controller() {}
 
   public static void main(String[] args) {
-    DataStructures.Stack stack = new DataStructures.Stack(10);
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    stack.push(40);
-    stack.push(50);
-    stack.push(60);
-    stack.push(70);
-    stack.push(80);
-    stack.push(90);
-    stack.push(100);
+    DataStructures.Stack<Character> stack = new DataStructures.Stack<Character>(10);
+    stack.push('A');
+    stack.push('B');
+    stack.push('C');
+    stack.push('D');
+    stack.push('E');
+    stack.push('F');
+    stack.push('G');
+    stack.push('H');
+    stack.push('I');
+    stack.push('J');
 
     stack.pop();
     stack.pop();

@@ -2,40 +2,40 @@ import java.util.*;
 
 public class DataStructures {
 
-  static class Stack {
+  static class Stack<T> {
 
-    private int[] stackArray;
-    private int top;
+    private T[] stackArray;   //array container for stack elements
+    private int top;          //current top index of the stack
 
     public Stack(int size) {
-      stackArray = new int[size];
+      stackArray = (T[])new Object[size];
       top = 0;
     }
 
-    public int pop() {
-      int poppedValue = 0;
+    public T pop() {
+      T poppedValue = null;
 
       if(top > 0) {
         poppedValue = stackArray[top-1];
-        stackArray[top-1] = 0;
+        stackArray[top-1] = null;
         top--;
       }
 
       return poppedValue;
     }
 
-    public void push(int value) {
+    public void push(T value) {
       if (top < stackArray.length) {
         stackArray[top] = value;
         top++;
       }
     }
 
-    public int peek() {
+    public T peek() {
       if (top > 0) {
         return stackArray[top-1];
       } else {
-        return 0;
+        return null;
       }
     }
 
@@ -60,11 +60,11 @@ public class DataStructures {
       String stack = "[";
 
       for (int index = 0; index < top-1; index++) {
-        stack += stackArray[index];
+        stack += stackArray[index].toString();
         stack += ", ";
       }
       if (top > 0) {
-        stack += stackArray[top-1];
+        stack += stackArray[top-1].toString();
       }
       stack += "]";
 
