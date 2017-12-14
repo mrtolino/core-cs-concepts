@@ -2,17 +2,17 @@ import java.util.*;
 
 public class DataStructures {
 
-  static class List {
+  static class List<T> {
 
-    private ListNode head;
+    private ListNode<T> head;
 
-    public List(int headValue) {
-      head = new ListNode(headValue, null, null);
+    public List(T headValue) {
+      head = new ListNode<T>(headValue, null, null);
     }
 
-    public void insert(int index, int value) {
-      ListNode curr = head;
-      ListNode newCurr;
+    public void insert(int index, T value) {
+      ListNode<T> curr = head;
+      ListNode<T> newCurr;
 
       for (int i = 0; i < index; i++) {
         if (curr.getNext() != null)
@@ -21,77 +21,103 @@ public class DataStructures {
           return;   //cannot insert at given index
       }
 
-      newCurr = new ListNode(value, curr.getPrev(), curr);
+      newCurr = new ListNode<T>(value, curr.getPrev(), curr);
       curr.getPrev().setNext(newCurr);
       curr.setPrev(newCurr);
     }
 
-    public void insertLast(int value) {
-      ListNode curr = head;
-      ListNode newNode;
+    public void insertLast(T value) {
+      ListNode<T> curr = head;
+      ListNode<T> newNode;
 
       while(curr.getNext() != null) {
         curr = curr.getNext();
       }
 
-      newNode = new ListNode(value, curr, null);
+      newNode = new ListNode<T>(value, curr, null);
       curr.setNext(newNode);
+    }
+
+    public void remove() {
+      ListNode<T> curr = head;
+      head = head.getNext();
+      curr.setNext(null);
+      curr.setPrev(null);
+      head.setPrev(null);
+      curr = null;
+    }
+
+    public void remove(int index) {
+      ListNode<T> curr = head;
+
+      for(int i = 0; i < index; i++) {
+        if (curr.getNext() != null)
+          curr = curr.getNext();
+        else
+          return; //index does not exist in the list
+      }
+
+      curr.getPrev().setNext(curr.getNext());
+      curr.getNext().setPrev(curr.getPrev());
+      curr.setPrev(null);
+      curr.setNext(null);
+      curr = null;
     }
 
     @Override
     public String toString() {
-      ListNode curr = head;
+      ListNode<T> curr = head;
       String listString = "";
 
       listString += curr.getValue();
       while(curr.getNext() != null) {
         curr = curr.getNext();
         listString += " --> ";
-        listString += curr.getValue();
+        listString += curr.getValue().toString();
       }
 
       return listString;
     }
 
-    private class ListNode {
+    private class ListNode<T> {
 
-      int value;
-      ListNode prev;
-      ListNode next;
+      T value;
+      ListNode<T> prev;
+      ListNode<T> next;
 
       public ListNode() {
-        this.value = 0;
+        this.value = null;
         this.prev = null;
         this.next = null;
       }
 
-      public ListNode(int value, ListNode prev, ListNode next) {
+      public ListNode(T value, ListNode<T> prev, ListNode<T> next) {
         this.value = value;
         this.prev = prev;
         this.next = next;
       }
 
-      public int getValue() {
+      public T getValue() {
         return value;
       }
 
-      public void setValue(int value) {
+      public void setValue(T value) {
         this.value = value;
       }
 
-      public ListNode getNext() {
+      public ListNode<T> getNext() {
         return next;
       }
 
-      public ListNode getPrev() {
+      public ListNode<T> getPrev() {
         return prev;
       }
 
-      public void setNext(ListNode next) {
+      public void setNext(ListNode<T> next) {
         this.next = next;
       }
 
-      public void setPrev(ListNode prev) {
+      public void setPrev(ListNode<T> prev) {
         this.prev = prev;
       }
     }

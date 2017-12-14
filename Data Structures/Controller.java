@@ -8,18 +8,22 @@ public class Controller {
   }
 
   private static void listTest() {
-    DataStructures.List list = new DataStructures.List(10);
-    list.insertLast(20);
-    list.insertLast(30);
+    DataStructures.List<Character> list = new DataStructures.List<Character>('A');
+    list.insertLast('B');
+    list.insertLast('C');
 
 
     System.out.println(list.toString());
 
-    list.insert(1, 5);
+    list.insert(1, 'D');
 
     System.out.println(list.toString());
 
-    list.insert(4, 133);
+    list.insert(2, 'E');
+
+    System.out.println(list.toString());
+
+    list.remove(3);
 
     System.out.println(list.toString());
   }
