@@ -1,13 +1,96 @@
-import java.util.*;
-
 public class DataStructures {
+
+  static class HashMap<K, V> {
+
+    private final int initialCapacity;
+    private final double loadFactor;
+    private List<Data<K, V>> [] table;
+
+    public HashMap() {
+      this.initialCapacity = 16;
+      this.loadFactor = 0.75;
+      table = new List<Data<K, V>>[initialCapacity];
+    }
+
+    public HashMap(int initialCapacity) {
+      this.initialCapacity = initialCapacity;
+      this.loadFactor = 0.75;
+      table = new List<Data<K, V>>[initialCapacity];
+    }
+
+    public HashMap(int initialCapacity, double loadFactor) {
+      this.initialCapacity = initialCapacity;
+      this.loadFactor = loadFactor;
+      table = new List<Data<K, V>>[initialCapacity];
+    }
+
+    public void put(K key, V value) {
+      Data<K, V> node = new Data<K, V>(key, value);
+
+      table[hash(key)].insertLast(node);
+    }
+
+    public V get(K key) {
+      return table[hash(key)].find(new Data<K, V>(key, null)).getValue();
+    }
+
+    private int hash(K key) {
+      int code = key.toString().hashCode();
+
+      return code % table.length;
+    }
+
+    static class Data<K, V> {
+      private final K key;
+      private final V value;
+      public Data(K key, V value) {
+        this.key = key;
+        this.value = value;
+      }
+      public K getKey() {
+        return key;
+      }
+      public V getValue() {
+        return value;
+      }
+      @Override
+      public boolean equals(Object obj) {
+        if (obj == null)
+          return false;
+        if (!Data.class.isAssignableFrom(obj.getClass()))
+          return false;
+
+        final Data<K, V> b = (Data<K, V>) obj;
+        return this.key.equals(b.getKey());
+      }
+    }
+
+  }
 
   static class List<T> {
 
     private ListNode<T> head;
 
+    public List() {
+      head = null;
+    }
     public List(T headValue) {
       head = new ListNode<T>(headValue, null, null);
+    }
+
+    public T find(T value) {
+      ListNode<T> curr = head;
+
+      if (value.equals(curr.getValue()))
+        return curr.getValue();
+
+      while(curr.hasNext()) {
+        curr = curr.getNext();
+        if (value.equals(curr.getValue()))
+          return curr.getValue();
+      }
+
+      return null;  //value not found in list
     }
 
     public void insert(int index, T value) {
@@ -15,7 +98,7 @@ public class DataStructures {
       ListNode<T> newCurr;
 
       for (int i = 0; i < index; i++) {
-        if (curr.getNext() != null)
+        if (curr.hasNext())
           curr = curr.getNext();
         else
           return;   //cannot insert at given index
@@ -30,7 +113,13 @@ public class DataStructures {
       ListNode<T> curr = head;
       ListNode<T> newNode;
 
-      while(curr.getNext() != null) {
+      //insert at head
+      if (curr == null || (curr.getPrev() == null && curr.getNext() == null)) {
+        head = new ListNode<T>(value, null, null);
+        return;
+      }
+
+      while(curr.hasNext()) {
         curr = curr.getNext();
       }
 
@@ -51,7 +140,7 @@ public class DataStructures {
       ListNode<T> curr = head;
 
       for(int i = 0; i < index; i++) {
-        if (curr.getNext() != null)
+        if (curr.hasNext())
           curr = curr.getNext();
         else
           return; //index does not exist in the list
@@ -70,7 +159,7 @@ public class DataStructures {
       String listString = "";
 
       listString += curr.getValue();
-      while(curr.getNext() != null) {
+      while(curr.hasNext()) {
         curr = curr.getNext();
         listString += " --> ";
         listString += curr.getValue().toString();
@@ -103,6 +192,13 @@ public class DataStructures {
 
       public void setValue(T value) {
         this.value = value;
+      }
+
+      public boolean hasNext() {
+        if (next != null)
+          return true;
+        else
+          return false;
       }
 
       public ListNode<T> getNext() {

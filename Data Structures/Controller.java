@@ -1,10 +1,19 @@
-import java.util.*;
-
 public class Controller {
   public Controller() {}
 
   public static void main(String[] args) {
-    listTest();
+    hashMapTest();
+  }
+
+  private static void hashMapTest() {
+    DataStructures.HashMap<Character, Integer> table = new DataStructures.HashMap<Character, Integer>();
+
+    table.put('A', 10);
+    table.put('B', 20);
+    table.put('C', 30);
+
+    System.out.println("Value stored at key A --> " + table.get('A').toString());
+
   }
 
   private static void listTest() {
