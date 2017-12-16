@@ -6,7 +6,8 @@ public class Controller {
   }
 
   private static void hashMapTest() {
-    DataStructures.HashMap<Character, Integer> table = new DataStructures.HashMap<Character, Integer>();
+    DataStructures.HashMap<Character, Integer> table =
+      new DataStructures.HashMap<Character, Integer>();
 
     table.put('A', 10);
     table.put('B', 20);

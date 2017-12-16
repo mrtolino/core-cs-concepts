@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class DataStructures {
 
   static class HashMap<K, V> {
@@ -9,19 +11,28 @@ public class DataStructures {
     public HashMap() {
       this.initialCapacity = 16;
       this.loadFactor = 0.75;
-      table = new List<Data<K, V>>[initialCapacity];
+      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      initLists();
     }
 
-    public HashMap(int initialCapacity) {
+    public HashMap(Class<K> k, Class<V> v, int initialCapacity) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = 0.75;
-      table = new List<Data<K, V>>[initialCapacity];
+      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      initLists();
     }
 
-    public HashMap(int initialCapacity, double loadFactor) {
+    public HashMap(Class<K> k, Class<V> v, int initialCapacity, double loadFactor) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = loadFactor;
-      table = new List<Data<K, V>>[initialCapacity];
+      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      initLists();
+    }
+
+    private void initLists() {
+      for (int index = 0; index < table.length; index++) {
+        table[index] = new List<Data<K, V>>();
+      }
     }
 
     public void put(K key, V value) {
@@ -39,32 +50,31 @@ public class DataStructures {
 
       return code % table.length;
     }
+  }
 
-    static class Data<K, V> {
-      private final K key;
-      private final V value;
-      public Data(K key, V value) {
-        this.key = key;
-        this.value = value;
-      }
-      public K getKey() {
-        return key;
-      }
-      public V getValue() {
-        return value;
-      }
-      @Override
-      public boolean equals(Object obj) {
-        if (obj == null)
-          return false;
-        if (!Data.class.isAssignableFrom(obj.getClass()))
-          return false;
-
-        final Data<K, V> b = (Data<K, V>) obj;
-        return this.key.equals(b.getKey());
-      }
+  static class Data<K, V> {
+    private final K key;
+    private final V value;
+    public Data(K key, V value) {
+      this.key = key;
+      this.value = value;
     }
+    public K getKey() {
+      return key;
+    }
+    public V getValue() {
+      return value;
+    }
+    @Override
+    public boolean equals(Object obj) {
+      if (obj == null)
+        return false;
+      if (!Data.class.isAssignableFrom(obj.getClass()))
+        return false;
 
+      final Data<K, V> b = (Data<K, V>) obj;
+      return this.key.equals(b.getKey());
+    }
   }
 
   static class List<T> {
