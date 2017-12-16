@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-
 public class DataStructures {
 
   static class HashMap<K, V> {
@@ -11,21 +9,21 @@ public class DataStructures {
     public HashMap() {
       this.initialCapacity = 16;
       this.loadFactor = 0.75;
-      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      table = (List<Data<K, V>> []) new List[initialCapacity];
       initLists();
     }
 
     public HashMap(int initialCapacity) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = 0.75;
-      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      table = (List<Data<K, V>> []) new List[initialCapacity];
       initLists();
     }
 
     public HashMap(int initialCapacity, double loadFactor) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = loadFactor;
-      table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
+      table = (List<Data<K, V>> []) new List[initialCapacity];
       initLists();
     }
 
