@@ -15,14 +15,14 @@ public class DataStructures {
       initLists();
     }
 
-    public HashMap(Class<K> k, Class<V> v, int initialCapacity) {
+    public HashMap(int initialCapacity) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = 0.75;
       table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
       initLists();
     }
 
-    public HashMap(Class<K> k, Class<V> v, int initialCapacity, double loadFactor) {
+    public HashMap(int initialCapacity, double loadFactor) {
       this.initialCapacity = initialCapacity;
       this.loadFactor = loadFactor;
       table = (List<Data<K, V>> []) Array.newInstance(List.class, initialCapacity);
