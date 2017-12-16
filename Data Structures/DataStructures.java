@@ -1,15 +1,33 @@
 public class DataStructures {
 
+  static class Vertex {
+    private int data;
+    private HashMap<Character, Vertex> neighbors;
+
+    public Vertex(int data) {
+      this.data = data;
+      neighbors = new HashMap<Character, Vertex>();
+    }
+    public int getData() {
+      return data;
+    }
+    public void setData(int data) {
+      this.data = data;
+    }
+  }
+
   static class HashMap<K, V> {
 
     private final int initialCapacity;
     private final double loadFactor;
     private List<Data<K, V>> [] table;
+    private List<Data<K, V>> insertOrderList; //list that contains elements in insertion order
 
     public HashMap() {
       this.initialCapacity = 16;
       this.loadFactor = 0.75;
       table = (List<Data<K, V>> []) new List[initialCapacity];
+      insertOrderList = new List<Data<K, V>>();
       initLists();
     }
 
@@ -37,10 +55,15 @@ public class DataStructures {
       Data<K, V> node = new Data<K, V>(key, value);
 
       table[hash(key)].insertLast(node);
+      insertOrderList.insertLast(node);
     }
 
     public V get(K key) {
       return table[hash(key)].find(new Data<K, V>(key, null)).getValue();
+    }
+
+    public List<Data<K, V>> getInsertOrderList() {
+      return insertOrderList;
     }
 
     private int hash(K key) {
