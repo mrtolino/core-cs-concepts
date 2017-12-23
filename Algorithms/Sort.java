@@ -1,47 +1,50 @@
 import java.lang.Math;
-import java.util.Random;
 import java.util.Arrays;
 
 public class Sort {
 
   //start should be the start index of the segment, end should be the end index
   public static int [] quicksort(int [] values, int start, int end) {
-    int pivot = values[start], pivotIndex = start, left = start, right = end;
+    int pivot = 0, pivotIndex = 0, left = start, right = end;
 
-    if (start == end) {
+    System.out.println("START => " + start + ", END => " + end);
+
+    if (start == end)
       return values;
-    } else {
-      for (int index = start; index < end+1; index++) {
-        if (left != right && index != pivotIndex) {
-          if (values[index] <= pivot) {
-            int temp = values[left];
-            values[left] = values[index];
-            values[index] = temp;
-            if (left == pivotIndex) {
-              pivotIndex = index;
-            }
-            left++;
-          } else if (values[index] > pivot) {
-            int temp = values[right];
-            values[right] = values[index];
-            values[index] = temp;
-            if (right == pivotIndex) {
-              pivotIndex = index;
-            }
-            right--;
+
+    pivotIndex = (int)(Math.random() * (end-start)+1) + start;
+    pivot = values[pivotIndex];
+
+    for (int index = start; index < end+1; index++) {
+      if (left != right && index != pivotIndex) {
+        if (values[index] <= pivot) {
+          int temp = values[left];
+          values[left] = values[index];
+          values[index] = temp;
+          if (left == pivotIndex) {
+            pivotIndex = index;
           }
+          left++;
+        } else if (values[index] > pivot) {
+          int temp = values[right];
+          values[right] = values[index];
+          values[index] = temp;
+          if (right == pivotIndex) {
+            pivotIndex = index;
+          }
+          right--;
         }
       }
-
-      if (left > 0) {
-        values = quicksort(values, 0, left-1);
-      }
-      if (right < end) {
-        values = quicksort(values, right+1, end);
-      }
-
-      return values;
     }
+
+    if (left > 0) {
+      values = quicksort(values, 0, left-1);
+    }
+    if (right < end) {
+      values = quicksort(values, right+1, end);
+    }
+
+    return values;
   }
 
   public static int [] mergeSort(int [] values) {

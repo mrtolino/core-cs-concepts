@@ -8,11 +8,13 @@ public class Controller {
     int [] values = new int[SIZE];
 
     for (int index = 0; index < values.length; index++) {
-      values[index] = (int)(Math.random()*1000);
+      values[index] = (int)(Math.random()*10);
     }
 
+    System.out.print("UNSORTED => ");
     printArray(values);
     values = Sort.quicksort(values, 0, SIZE-1);
+    System.out.print("SORTED => ");
     printArray(values);
   }
 
